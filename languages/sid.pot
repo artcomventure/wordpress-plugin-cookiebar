@@ -1,0 +1,67 @@
+# Copyright (C) 2020 artcom venture GmbH
+# This file is distributed under MIT.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sid\n"
+"Report-Msgid-Bugs-To: info@artcom-venture.de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: artcom venture GmbH <info@artcom-venture.de>\n"
+"Language-Team: artcom venture GmbH <info@artcom-venture.de>\n"
+"Language: de_DE\n"
+
+msgid "%s of page"
+msgstr ""
+
+msgid "%s Settings"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "As soon as the message is changed the cookiebar will appear again."
+msgstr ""
+
+msgid "Bottom"
+msgstr ""
+
+msgid "Confirmation link text"
+msgstr ""
+
+msgid "Button text"
+msgstr ""
+
+msgid "Cookiebar"
+msgstr ""
+
+msgid "Indirect confirmation"
+msgstr ""
+
+msgid "Leave blank to not show any message."
+msgstr ""
+
+msgid "Message"
+msgstr ""
+
+msgid "Middle"
+msgstr ""
+
+msgid "show as %s"
+msgstr ""
+
+msgid "The confirmation link will be added automatically at the end of the text."
+msgstr ""
+
+msgid "The user can't confirm message. Please enter a <code>[coOKie]</code> shortcode to the %s or set %s, otherwise the message will be displayed on every page request."
+msgstr ""
+
+msgid "Top"
+msgstr ""
+
+msgid "User confirms by further use (on every link click) of the website."
+msgstr ""
+
+msgid "You can add a confirmation link by adding <code>[coOKie text=\"%s\"]</code>."
+msgstr ""

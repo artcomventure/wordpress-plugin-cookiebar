@@ -1,0 +1,54 @@
+.wp-editor-wrap {
+  .wp-editor-tools:first-of-type {
+    margin-top: 5px;
+  }
+
+  .wp-editor-container:first-of-type {
+    margin-top: -1px;
+  }
+}
+
+select[name="sid[confirmation][type]"] {
+  height: 25px;
+  vertical-align: baseline;
+}
+
+#font-size-slider {
+  max-width: 264px;
+
+  .ui-slider-handle {
+    &:before,
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      background-color: #aaa;
+      transition: .2s background-color;
+    }
+
+    &:before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      transform: rotate(45deg) translate(-130%, -70%);
+    }
+
+    &:after {
+      content: attr(data-value);
+      color: #fff;
+      transform: translate(-50%, -135%);
+      font-size: 11px;
+      line-height: 1;
+      padding: .35em;
+      border-radius: 2px;
+    }
+  }
+
+  &:hover .ui-slider-handle,
+  .ui-slider-handle.ui-state-active {
+    &:before,
+    &:after {
+      background-color: #000;
+    }
+  }
+}
