@@ -77,7 +77,13 @@ _We test our plugin through its paces, but we advise you to take all safety prec
 == Questions, concerns, needs, suggestions? ==
 
 Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-cookiebar/issues) welcome.
+
 == Changelog ==
+
+= 1.0.1 - 2020-08-14 =
+**Fixed**
+
+* Locale's confirmation link setting.
 
 = 1.0.0 - 2020-08-14 =
 **Added**

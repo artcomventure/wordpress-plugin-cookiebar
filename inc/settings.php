@@ -73,7 +73,8 @@ function sid_settings_page() {
                                         <?php unload_textdomain( 'sid' );
                                         load_textdomain( 'sid', SID_PLUGIN_DIR . "languages/sid-{$locale}.mo" ); ?>
                                         <input type="text" name="sid[confirmation][<?php echo $locale; ?>]" value="<?php echo $settings['confirmation'][$locale]; ?>" placeholder="<?php _e( 'Accept', 'sid' ); ?>" />
-                                        <?php sid_t9n();
+                                        <?php unload_textdomain( 'sid' );
+                                        sid_t9n();
 
                                         $confirmation_type = array_map( function( $type ) use ( $settings ) {
                                             return '<option' . selected(strtolower( $type ), $settings['confirmation']['type'], false ) . ' value="' . strtolower( $type ) . '">' . __( $type ) . '</option>';
