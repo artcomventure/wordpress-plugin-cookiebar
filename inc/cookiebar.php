@@ -66,7 +66,7 @@ function sid_scripts() {
 	$inline_style .= "#cookiebar a[data-type=\"button\"] {
         background-color: " . $bbcolor . ";
         color: " . $btcolor . ";
-    }
+    } 
     
     #cookiebar a[data-type=\"button\"]:before {
         background-color: " . $btcolor . "; 

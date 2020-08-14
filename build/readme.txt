@@ -35,10 +35,13 @@ Custom message cookiebar.
 
 Once activated you'll find the 'Cookiebar' settings page listed in the submenu of 'Settings'.
 
-1. Enter the content of the cookiebar (multi-language-ready).
+1. Enter the content of the cookiebar (multi-language-ready<sup>1</sup>).
 2. Set confirmation UI (text and type).
 3. Define cookiebar style (font size, colors, position).
 4. UX
+
+<sub><sup><sup>1</sup> Compatible with [Bogo](https://de.wordpress.org/plugins/bogo/), [Polylang](https://de.wordpress.org/plugins/polylang/), [WP Multilang](https://wordpress.org/plugins/wp-multilang/) and all others<sup>2</sup> </sup></sub><br />
+<sub><sup><sup>2</sup> Edit the list of languages with filter hook (`'sid_get_available_languages'`) see [Usage PHP](https://github.com/artcomventure/wordpress-plugin-cookiebar/blob/master/README.md== Description ==
 
 == Usage ==
 
@@ -61,6 +64,13 @@ if ( Sid.accepted ) {
 if ( function_exists( 'sid_is_accepted' ) && sid_is_accepted() ) {
     // do stuff if cookiebar is confirmed
 }
+
+// edit the list of languages with filter hook
+add_filter( 'sid_get_available_languages', 'filter_languages' );
+function filter_languages ( $languages ) {
+    // locale => 'native name'
+    return $languages;
+} 
 ```
 
 == Plugin Updates ==
@@ -79,6 +89,11 @@ _We test our plugin through its paces, but we advise you to take all safety prec
 Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-cookiebar/issues) welcome.
 
 == Changelog ==
+
+= 1.0.1 - 2020-08-14 =
+**Added**
+
+* Compatibility with multi-language plugins. 
 
 = 1.0.1 - 2020-08-14 =
 **Fixed**

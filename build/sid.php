@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Sid
  * Description: Named after the famous cookie monster from Sesame Street.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Text Domain: sid
  * Author: artcom venture GmbH
  * Author URI: http://www.artcom-venture.de/
@@ -38,10 +38,20 @@ function sid_available_languages() {
 	$languages = array();
 
 	require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
-	$translations = wp_get_available_translations();
+	$translations = wp_get_available_translations() + array( 'en_US' => array( 'native_name' => 'English (United States)' ) );
 
-	foreach ( get_available_languages() as $language ) {
-		$languages[$language] = $translations[$language]['native_name'];
+	if ( function_exists( 'bogo_available_locales' ) )
+		$available_locales = bogo_available_locales();
+	elseif ( function_exists( 'pll_languages_list' ) )
+		$available_locales = pll_languages_list( array( 'fields' => 'locale' ) );
+//	elseif ( function_exists( 'wpml_active_languages' ) )
+//		$available_locales = wpml_active_languages();
+	elseif ( function_exists( 'wpm_get_languages' ) )
+		$available_locales = array_column( wpm_get_languages(), 'locale' );
+	else $available_locales = array( get_locale() );
+
+	foreach ( $available_locales as $locale ) {
+		$languages[$locale] = $translations[$locale]['native_name'];
 	}
 
 	return apply_filters( 'sid_get_available_languages', $languages );

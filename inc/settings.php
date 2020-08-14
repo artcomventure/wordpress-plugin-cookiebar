@@ -42,8 +42,9 @@ function sid_settings_page() {
 				                <?php _e( 'Message', 'sid' ); ?>
                             </th>
                             <td>
-                                <div class="nav-tab-wrapper hide-if-no-js">
-                                    <?php foreach( $available_languages = sid_available_languages() as $locale => $name ): ?>
+                                <?php $available_languages = sid_available_languages(); ?>
+                                <div class="nav-tab-wrapper hide-if-no-js"<?php echo count($available_languages) == 1 ? ' style="display: none;"' : ''; ?>>
+                                    <?php foreach( $available_languages as $locale => $name ): ?>
                                         <a href="#message-<?php echo $locale ?>-wrap" class="nav-tab">
                                             <?php echo $name; ?>
                                         </a>
