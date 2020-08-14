@@ -1,4 +1,4 @@
-# WordPress Cookiebar
+# Sid ... THE WordPress Cookiebar
 
 Custom message cookiebar.
 
