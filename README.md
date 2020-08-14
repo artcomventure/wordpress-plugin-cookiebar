@@ -30,7 +30,7 @@ Once activated you'll find the 'Cookiebar' settings page listed in the submenu o
 ![image](assets/screenshot-1.jpg)
 
 <sub><sup><sup>1</sup> Compatible with [Bogo](https://de.wordpress.org/plugins/bogo/), [Polylang](https://de.wordpress.org/plugins/polylang/), [WP Multilang](https://wordpress.org/plugins/wp-multilang/) and all others<sup>2</sup> </sup></sub><br />
-<sub><sup><sup>2</sup> Edit the list of languages with filter hook (`'sid_get_available_languages'`) see [Usage PHP](https://github.com/artcomventure/wordpress-plugin-cookiebar/blob/master/README.md#php) </sup></sub>
+<sub><sup><sup>2</sup> Edit the list of languages with filter hook (`'sid_get_available_languages'`) see [Usage PHP](https://github.com/artcomventure/wordpress-plugin-cookiebar#php) </sup></sub>
 
 ## Usage
 
