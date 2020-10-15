@@ -21,7 +21,7 @@
 
         // remove cookiebar
         $cookiebar.parentNode.removeChild( $cookiebar );
-        if ( position === 'middle' ) document.body.style['padding-' + position] = '';
+        if ( position !== 'middle' ) document.body.style['padding-' + position] = '';
     }, false ); 
 
     $cookiebar.addEventListener( 'click', function( e ) {
