@@ -1,4 +1,4 @@
-;(function() {
+document.addEventListener( 'DOMContentLoaded', function() {
 
     var $cookiebar = document.getElementById( 'cookiebar' );
     if ( !$cookiebar ) return;
@@ -56,4 +56,4 @@
         $link.addEventListener( 'click', setCookie, false);
     });
 
-})();
+}, false );

@@ -53,8 +53,8 @@ document.body.addEventListener( 'sid_accepted', function() {
     // ...
 }, false );
 
-if ( Sid.accepted ) {
-    // do stuff if cookiebar is already confirmed
+if ( typeof Sid === 'undefined' || Sid.accepted ) {
+    // do stuff if cookiebar is not in use or already confirmed
 }
 ```
 
@@ -89,6 +89,11 @@ _We test our plugin through its paces, but we advise you to take all safety prec
 Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-cookiebar/issues) welcome.
 
 == Changelog ==
+
+= 1.1.2 - 2020-11-03 =
+**Changed**
+
+* Put js in header.
 
 = 1.1.1 - 2020-10-15 =
 **Fixed**

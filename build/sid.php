@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Sid
  * Description: Named after the famous cookie monster from Sesame Street.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Text Domain: sid
  * Author: artcom venture GmbH
  * Author URI: http://www.artcom-venture.de/

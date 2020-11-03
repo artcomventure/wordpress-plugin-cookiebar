@@ -42,8 +42,8 @@ document.body.addEventListener( 'sid_accepted', function() {
     // ...
 }, false );
 
-if ( Sid.accepted ) {
-    // do stuff if cookiebar is already confirmed
+if ( typeof Sid === 'undefined' || Sid.accepted ) {
+    // do stuff if cookiebar is not in use or already confirmed
 }
 ```
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.2 - 2020-11-03
+**Changed**
+
+* Put js in header.
+
 ## 1.1.1 - 2020-10-15
 **Fixed**
 

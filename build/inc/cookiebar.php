@@ -24,8 +24,9 @@ function sid_scripts() {
 	$plugin_data = get_plugin_data( SID_PLUGIN_DIR . 'sid.php' );
 
 	$settings = sid_settings();
+	if ( empty($settings['message'][get_locale()]) ) return;
 
-	wp_enqueue_script( 'cookiebar', SID_PLUGIN_URL . 'js/cookiebar.min.js', array(), $plugin_data['Version'], true );
+	wp_enqueue_script( 'cookiebar', SID_PLUGIN_URL . 'js/cookiebar.min.js', array(), $plugin_data['Version'] );
 	wp_localize_script( 'cookiebar', 'Sid', array(
 	        'accepted' => sid_is_accepted(),
 	        'settings' => $settings
