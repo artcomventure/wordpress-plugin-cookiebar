@@ -1,8 +1,8 @@
 {
-  "name": "wordpress-plugin-facebookFeed",
+  "name": "wordpress-plugin-cookiebar",
   "repository": {
     "type": "git",
-    "url": "https://github.com/artcomventure/wordpress-plugin-facebookFeed.git"
+    "url": "https://github.com/artcomventure/wordpress-plugin-cookiebar.git"
   },
   "license": "MIT",
   "devDependencies": {
@@ -22,12 +22,12 @@
     "gulp-util": "^3.0.8",
     "uglify-save-license": "^0.4.1"
   },
-  "description": "Auto-embed your (public) Facebook posts.",
+  "description": "Named after the famous cookie monster from Sesame Street.",
   "bugs": {
-    "url": "https://github.com/artcomventure/wordpress-plugin-facebookFeed/issues"
+    "url": "https://github.com/artcomventure/wordpress-plugin-cookiebar/issues"
   },
-  "homepage": "https://github.com/artcomventure/wordpress-plugin-facebookFeed#readme",
-  "version": "1.0.0",
+  "homepage": "https://github.com/artcomventure/wordpress-plugin-cookiebar#readme",
+  "version": "1.1.5",
   "main": "gulpfile.js",
   "dependencies": {},
   "scripts": {

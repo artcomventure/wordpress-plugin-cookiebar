@@ -90,6 +90,21 @@ Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-cooki
 
 == Changelog ==
 
+= 1.1.5 - 2021-05-25 =
+**Fixed**
+
+* PHP undefined index warning.
+
+= 1.1.4 - 2021-05-10 =
+**Fixed**
+
+* Default CSS.
+
+= 1.1.3 - 2021-03-22 =
+**Changed**
+
+* Extend layout settings.
+
 = 1.1.2 - 2020-11-03 =
 **Changed**
 

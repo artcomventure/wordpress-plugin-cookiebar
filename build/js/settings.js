@@ -83,15 +83,15 @@
             change: function( e, data ) {
                 setTimeout( function() {
                     switch ( this.name ) {
-                        case 'sid[bcolor]':
+                        case 'sid[color][box]':
                             setEditorStyle( { backgroundColor: this.value } );
                             break;
 
-                        case 'sid[tcolor]':
+                        case 'sid[color][text]':
                             setEditorStyle( { color: this.value } );
                             break;
 
-                        case 'sid[lcolor]':
+                        case 'sid[color][link]':
                             setEditorStyle( { color: this.value }, 'a' );
                             break;
                     }
@@ -109,16 +109,27 @@
      * Therefore: when one is changed all others are changed (for UX purpose).
      */
 
-    var $bbColorUI = $( 'input[name="sid[bbcolor]"]' ).closest( 'div.wp-picker-container' ),
+    var $buttonColorUI = $( 'input[name="sid[color][button]"]' ).closest( 'div.wp-picker-container' ),
         $typeInputs = $( 'select[name="sid[confirmation][type]"]' ).on( 'change', function() {
             $typeInputs.val( this.value );
 
             // toggle button color UI
             // not needed for `type` 'link'.
-            $bbColorUI[this.value === 'button' ? 'show' : 'hide']()
+            $buttonColorUI[this.value === 'button' ? 'show' : 'hide']()
         } );
 
     // to toggle button color UI on page load
     $typeInputs.first().trigger( 'change' );
+
+    /**
+     * Overlay color.
+     */
+
+    var $backgroundColorUI = $( 'input[name="sid[color][background]"]' ).closest( 'div.wp-picker-container' );
+    $( 'select[name="sid[position]"]' ).on( 'change', function() {
+        // toggle overlay color UI
+        // not needed for `type` 'link'.
+        $backgroundColorUI[this.value === 'middle' ? 'show' : 'hide']()
+    } ).trigger( 'change' );
 
 })( jQuery );

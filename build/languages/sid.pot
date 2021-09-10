@@ -27,6 +27,9 @@ msgstr ""
 msgid "Bottom"
 msgstr ""
 
+msgid "Box"
+msgstr ""
+
 msgid "Confirmation link text"
 msgstr ""
 
@@ -46,6 +49,9 @@ msgid "Message"
 msgstr ""
 
 msgid "Middle"
+msgstr ""
+
+msgid "Overlay"
 msgstr ""
 
 msgid "show as %s"

@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Sid
  * Description: Named after the famous cookie monster from Sesame Street.
- * Version: 1.1.2
+ * Version: 1.1.5
  * Text Domain: sid
  * Author: artcom venture GmbH
  * Author URI: http://www.artcom-venture.de/
@@ -84,16 +84,24 @@ function sid_settings( $setting = null ) {
 		'message' => array(),
 		'confirmation' => array(),
 		'fontsize' => '14px',
-		'bcolor' => '', 'tcolor' => '', 'lcolor' => '', 'bbcolor' => '',
+		'color' => array(), // @since 1.1.3
 		'indirect' => 0,
 		'position' => 'top'
 	);
 
 	$settings['confirmation'] += array( 'type' => 'link' );
 
-	$settings['bcolor'] = $settings['bcolor'] ?: '#ffffff';
-	$settings['tcolor'] = $settings['tcolor'] ?: '#000000';
-	$settings['lcolor'] = $settings['lcolor'] ?: '#000000';
+	// to keep backward compatibility @since 1.2.0
+    $settings['color'] += array(
+        'background' => '',
+        'box' => empty($settings['bcolor']) ? '#ffffff' : $settings['bcolor'],
+        'text' => empty($settings['tcolor']) ? '#000000' : $settings['tcolor'],
+        'link' => empty($settings['lcolor']) ? '#000000' : $settings['lcolor'],
+        'button' => empty($settings['bbcolor']) ? '' : $settings['bbcolor']
+    );
+
+    // remove old entries
+    unset( $settings['bcolor'], $settings['tcolor'], $settings['lcolor'], $settings['bbcolor'] );
 
 	$settings['message'] += array_map( '__return_empty_string', sid_available_languages() );
 	$settings['confirmation'] += array_map( '__return_empty_string', sid_available_languages() );

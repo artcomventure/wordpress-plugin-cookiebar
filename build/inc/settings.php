@@ -104,10 +104,11 @@ function sid_settings_page() {
 		                        <?php _e( 'Colors' ); ?>:
                             </th>
                             <td>
-                                <input type="text" name="sid[bcolor]" class="color-picker" value="<?php echo $settings['bcolor']; ?>" data-label="<?php _e( 'Background' ); ?>" />
-                                <input type="text" name="sid[tcolor]" class="color-picker" value="<?php echo $settings['tcolor']; ?>" data-label="<?php _e( 'Text' ); ?>" />
-                                <input type="text" name="sid[lcolor]" class="color-picker" value="<?php echo $settings['lcolor']; ?>" data-label="<?php _e( 'Links' ); ?>" />
-                                <input type="text" name="sid[bbcolor]" class="color-picker" value="<?php echo $settings['bbcolor']; ?>" data-label="<?php _e( 'Button' ); ?>" />
+                                <input type="text" name="sid[color][background]" class="color-picker" value="<?php echo $settings['color']['background']; ?>" data-label="<?php _e( 'Background' ); ?>" />
+                                <input type="text" name="sid[color][box]" class="color-picker" value="<?php echo $settings['color']['box']; ?>" data-label="<?php _e( 'Box' ); ?>" />
+                                <input type="text" name="sid[color][text]" class="color-picker" value="<?php echo $settings['color']['text']; ?>" data-label="<?php _e( 'Text' ); ?>" />
+                                <input type="text" name="sid[color][link]" class="color-picker" value="<?php echo $settings['color']['link']; ?>" data-label="<?php _e( 'Links' ); ?>" />
+                                <input type="text" name="sid[color][button]" class="color-picker" value="<?php echo $settings['color']['button']; ?>" data-label="<?php _e( 'Button' ); ?>" />
                             </td>
                         </tr>
 
@@ -160,7 +161,7 @@ function sid_editor_buttons( $buttons, $editor_id ) {
     if ( in_array( $editor_id, array_map( function( $locale ) {
         return "sid-message-{$locale}";
     }, array_keys( sid_available_languages() ) ) ) )
-        return apply_filters( 'sid_editor_buttons', array( 'bold', 'italic', 'link', 'unlink', 'removeformat', 'undo', 'redo' ) );
+        return apply_filters( 'sid_editor_buttons', array( 'alignleft', 'alignright', 'bold', 'italic', 'link', 'unlink', 'removeformat', 'undo', 'redo' ) );
 
     return $buttons;
 }
@@ -180,9 +181,9 @@ function sid_editor_config( $init, $editor_id ) {
 		   'body' => array(
 			   'font-family' => 'sans-serif',
 		       'font-weight' => '400',
-		       'background-color' => $settings['bcolor'],
+		       'background-color' => $settings['color']['box'],
                'font-size' => $settings['fontsize'],
-               'color' => $settings['tcolor'],
+               'color' => $settings['color']['text'],
                'line-height' => 1.6,
                'text-align' => 'center',
                'max-width' => $GLOBALS['content_width'] . 'px',
@@ -191,7 +192,7 @@ function sid_editor_config( $init, $editor_id ) {
                'box-sizing' => 'border-box',
             ),
             'a' => array(
-                'color' => $settings['lcolor']
+                'color' => $settings['color']['link']
             )
         ) as $selector => $styles ) {
 		    if ( !$styles = array_filter( $styles, function( $value ) {
