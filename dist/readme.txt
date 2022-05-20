@@ -36,7 +36,7 @@ Custom message cookiebar.
 Once activated you'll find the 'Cookiebar' settings page listed in the submenu of 'Settings'.
 
 1. Enter the content of the cookiebar (multi-language-ready<sup>1</sup>).
-2. Set confirmation UI (text and type).
+2. Set confirmation/rejection UI (text and type).
 3. Define cookiebar style (font size, colors, position).
 4. UX
 
@@ -49,20 +49,33 @@ Once activated you'll find the 'Cookiebar' settings page listed in the submenu o
 
 ```javascript
 // do stuff the moment cookiebar is confirmed
-document.body.addEventListener( 'sid_accepted', function() {
+document.body.addEventListener( 'sid-accepted', function() {
     // ...
 }, false );
 
 if ( typeof Sid === 'undefined' || Sid.accepted ) {
     // do stuff if cookiebar is not in use or already confirmed
 }
+
+// do stuff the moment cookiebar is rejected
+document.body.addEventListener( 'sid-declined', function() {
+    // ...
+}, false );
+
+if ( typeof Sid === 'undefined' || Sid.declined ) {
+    // do stuff if cookiebar is not in use or already declined
+}
 ```
 
 == == Description ==
 
 ```php
-if ( function_exists( 'sid_is_accepted' ) && sid_is_accepted() ) {
+if ( !function_exists( 'sid_is_accepted' ) || sid_is_accepted() ) {
     // do stuff if cookiebar is confirmed
+}
+
+if ( !function_exists( 'sid_is_declined' ) || sid_is_declined() ) {
+    // do stuff if cookiebar is declined
 }
 
 // edit the list of languages with filter hook
@@ -89,6 +102,26 @@ _We test our plugin through its paces, but we advise you to take all safety prec
 Don't hesitate! [Issues](https://github.com/artcomventure/wordpress-plugin-cookiebar/issues) welcome.
 
 == Changelog ==
+
+= 1.4.0 - 2022-03-08 =
+**Added**
+
+* (no)script.
+
+= 1.3.1 - 2022-03-08 =
+**Changed**
+
+* Encapsulate function to get cookiebar message.
+
+= 1.3.1 - 2021-09-21 =
+**Added**
+
+* Rejection.
+
+= 1.2.0 - 2021-09-10 =
+**Fixed**
+
+* Custom font size.
 
 = 1.1.5 - 2021-05-25 =
 **Fixed**

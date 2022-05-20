@@ -21,9 +21,10 @@ function sid_settings_page() {
 		function() {
 		    // enqueue styles and scripts for admin page
 			$plugin_data = get_plugin_data( SID_PLUGIN_DIR . 'sid.php' );
-			wp_enqueue_script( 'sid-settings', SID_PLUGIN_URL . 'js/settings.min.js', array( 'jquery', 'wp-color-picker', 'jquery-ui-slider' ), $plugin_data['Version'] );
+			wp_enqueue_script( 'sid-settings', SID_PLUGIN_URL . 'js/settings.min.js', array( 'jquery', 'wp-color-picker', 'jquery-ui-slider', 'wp-i18n' ), $plugin_data['Version'] );
+			wp_set_script_translations( 'sid-settings', 'sid', SID_PLUGIN_DIR . '/languages' );
 			wp_register_style( 'jquery-ui', SID_PLUGIN_URL . 'css/jquery-ui/base/jquery-ui.css', array(), '1.12.1' );
-			wp_enqueue_style( 'sid-settings', SID_PLUGIN_URL . 'css/settings.min.css', array( 'wp-color-picker', 'jquery-ui' ), $plugin_data['Version'] ); ?>
+			wp_enqueue_style( 'sid-settings', SID_PLUGIN_URL . 'css/settings.css', array( 'wp-color-picker', 'jquery-ui' ), $plugin_data['Version'] ); ?>
 
 		    <div class="wrap">
                 <h2><?php printf( __( '%s Settings', 'sid' ), __( 'Cookiebar', 'sid' ) ); ?></h2>
@@ -70,20 +71,37 @@ function sid_settings_page() {
                                             <br />&nbsp;
                                         </p>
 
-                                        <label style="vertical-align: baseline"><b><?php _e( 'Confirmation link text', 'sid' ); ?></b>:</label>
-                                        <?php unload_textdomain( 'sid' );
-                                        load_textdomain( 'sid', SID_PLUGIN_DIR . "languages/sid-{$locale}.mo" ); ?>
-                                        <input type="text" name="sid[confirmation][<?php echo $locale; ?>]" value="<?php echo $settings['confirmation'][$locale]; ?>" placeholder="<?php _e( 'Accept', 'sid' ); ?>" />
-                                        <?php unload_textdomain( 'sid' );
-                                        sid_t9n();
+                                        <div style="margin-bottom: .5em;">
+                                            <label style="vertical-align: baseline"><b><?php _e( 'Rejection link text', 'sid' ); ?></b>:</label>
+		                                    <?php unload_textdomain( 'sid' );
+		                                    load_textdomain( 'sid', SID_PLUGIN_DIR . "languages/sid-{$locale}.mo" ); ?>
+                                            <input type="text" name="sid[rejection][<?php echo $locale; ?>]" value="<?php echo $settings['rejection'][$locale]; ?>" placeholder="<?php _e( 'Essential only', 'sid' ); ?>" />
+		                                    <?php unload_textdomain( 'sid' );
+		                                    sid_t9n();
 
-                                        $confirmation_type = array_map( function( $type ) use ( $settings ) {
-                                            return '<option' . selected(strtolower( $type ), $settings['confirmation']['type'], false ) . ' value="' . strtolower( $type ) . '">' . __( $type ) . '</option>';
-                                        }, array( 'Link' , 'Button' ) );
-                                        $confirmation_type = '<select name="sid[confirmation][type]">' . implode( '', $confirmation_type ) . '</select>';
-                                        printf( __( 'show as %s', 'sid' ), $confirmation_type ); ?>
+		                                    $rejection_tag = array_map( function( $tag, $label ) use ( $settings ) {
+			                                    return '<option' . selected( $tag, $settings['rejection']['tag'], false ) . ' value="' . $tag . '">' . $label . '</option>';
+		                                    }, array( 'a', 'button' ), array( __( 'Link' ), __( 'Button' ) ) );
+		                                    $rejection_tag = '<select name="sid[rejection][tag]">' . implode( '', $rejection_tag ) . '</select>';
+		                                    printf( __( 'show as %s', 'sid' ), $rejection_tag ); ?>
+                                        </div>
 
-                                        <p class="description"><?php _e( 'The confirmation link will be added automatically at the end of the text.', 'sid' ); ?></p>
+                                        <div>
+                                            <label style="vertical-align: baseline"><b><?php _e( 'Confirmation link text', 'sid' ); ?></b>:</label>
+                                            <?php unload_textdomain( 'sid' );
+                                            load_textdomain( 'sid', SID_PLUGIN_DIR . "languages/sid-{$locale}.mo" ); ?>
+                                            <input type="text" name="sid[confirmation][<?php echo $locale; ?>]" value="<?php echo $settings['confirmation'][$locale]; ?>" placeholder="<?php _e( 'Accept', 'sid' ); ?>" />
+                                            <?php unload_textdomain( 'sid' );
+                                            sid_t9n();
+
+                                            $confirmation_tag = array_map( function( $tag, $label ) use ( $settings ) {
+                                                return '<option' . selected( $tag, $settings['confirmation']['tag'], false ) . ' value="' . $tag . '">' . $label . '</option>';
+                                            }, array( 'a', 'button' ), array( __( 'Link' ), __( 'Button' ) ) );
+                                            $confirmation_tag = '<select name="sid[confirmation][tag]">' . implode( '', $confirmation_tag ) . '</select>';
+                                            printf( __( 'show as %s', 'sid' ), $confirmation_tag ); ?>
+                                        </div>
+
+                                        <p class="description"><?php _e( 'The confirmation/rejection links will be added automatically at the end of the text.', 'sid' ); ?></p>
                                     </div>
                                 <?php endforeach; ?>
                             </td>
@@ -91,9 +109,40 @@ function sid_settings_page() {
 
                         <tr valign="top">
                             <th scope="row">
-		                        <?php _e( 'Font Sizes' ); ?>:
+		                        <?php _e( 'Scripts', 'sid' ); ?>
                             </th>
                             <td>
+                                <div class="nav-tab-wrapper hide-if-no-js">
+			                        <?php foreach( ['script', 'noscript'] as $script ) : ?>
+                                        <a href="#<?php echo strtolower( $script ) ?>-wrap" class="nav-tab">
+					                        <?php echo $script; ?>
+                                        </a>
+			                        <?php endforeach; ?>
+                                </div>
+
+		                        <?php foreach( ['script', 'noscript'] as $script ) : ?>
+                                    <div id="<?php echo $script ?>-wrap">
+                                        <textarea name="sid[<?php echo $script ?>]" rows="10" cols="50" class="large-text code"><?php
+                                            echo $settings[$script]
+                                        ?></textarea>
+
+                                        <p class="description">
+					                        <?php _e( 'Enter scripts that should be executed once the cookiebar is accepted.', 'sid' ); ?>
+                                        </p>
+                                    </div>
+		                        <?php endforeach; ?>
+                            </td>
+                        </tr>
+
+                        <tr valign="top">
+                            <th scope="row">
+		                        <?php _e( 'Font Sizes' ); ?>:
+                            </th>
+                            <td style="display: flex; align-items: center;">
+                                <label for="custom_fontsize">
+                                    <?php _e( 'Custom font size', 'sid' ) ?>
+                                    <input id="custom_fontsize" name="sid[custom_fontsize]" type="checkbox"<?php checked( 1, $settings['custom_fontsize'] ) ?> value="1" />
+                                </label>
                                 <div id="font-size-slider"></div>
                                 <input type="hidden" name="sid[fontsize]" value="<?php echo $settings['fontsize']; ?>" placeholder="14px" />
                             </td>
@@ -130,14 +179,25 @@ function sid_settings_page() {
 
                         <tr valign="top">
                             <th scope="row">
-		                        <?php _e( 'Indirect confirmation', 'sid' ); ?>:
+		                        <?php _e( 'Validity', 'sid' ); ?>:
                             </th>
                             <td>
-                                <input type="checkbox" class="regular-checkbox"
-                                       name="sid[indirect]" value="1"<?php checked( $settings['indirect'] ); ?> />
+                                <input type="text" class="regular-textfield"
+                                       name="sid[expires]" value="<?php echo $settings['expires'] ?>" placeholder="<?php _e( 'E.g.', 'sid' ) ?>: 1y 2M 3w 4d 5h 6m 7s" />
 
                                 <p class="description">
-			                        <?php _e( 'User confirms by further use (on every link click) of the website.', 'sid' ); ?>
+                                    <?php printf(
+                                        __( "Users' selection will be invalid in (all optional): 1y (%s) 2M (%s) 3w (%s) 4d (%s) 5h (%s) 6m (%s) 7s (%s)", 'sid' ),
+                                        __( 'years', 'sid' ),
+                                        __( 'months', 'sid' ),
+                                        __( 'weeks', 'sid' ),
+                                        __( 'days', 'sid' ),
+                                        __( 'hours', 'sid' ),
+                                        __( 'minutes', 'sid' ),
+                                        __( 'seconds', 'sid' )
+                                    ) ?>
+                                    <br /><?php printf( _x( 'Current expiration: %s', 'cookie selection expiration', 'sid' ), '<span>' . (sid_expiration() ?: __( 'until the end of the session', 'sid' )) . '</span>' ) ?>
+                                    <span><?php _e( '(varies from actual time the user make his selection)', 'sid' ) ?></span>
                                 </p>
                             </td>
                         </tr>
@@ -152,6 +212,10 @@ function sid_settings_page() {
         <?php }
 	);
 }
+
+add_filter( 'pre_update_option_sid', function( $value, $old_value, $option ) {
+	return $value;
+}, 10, 3 );
 
 /**
  * Define editor's first row mce buttons.
@@ -182,7 +246,7 @@ function sid_editor_config( $init, $editor_id ) {
 			   'font-family' => 'sans-serif',
 		       'font-weight' => '400',
 		       'background-color' => $settings['color']['box'],
-               'font-size' => $settings['fontsize'],
+               'font-size' => $settings['custom_fontsize'] ? $settings['fontsize'] : '',
                'color' => $settings['color']['text'],
                'line-height' => 1.6,
                'text-align' => 'center',

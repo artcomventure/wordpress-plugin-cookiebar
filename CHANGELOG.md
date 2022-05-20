@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.4.0 - 2022-03-08
+**Added**
+
+* (no)script.
+
+## 1.3.1 - 2022-03-08
+**Changed**
+
+* Encapsulate function to get cookiebar message.
+
+## 1.3.1 - 2021-09-21
+**Added**
+
+* Rejection.
+
+## 1.2.0 - 2021-09-10
+**Fixed**
+
+* Custom font size.
+
 ## 1.1.5 - 2021-05-25
 **Fixed**
 

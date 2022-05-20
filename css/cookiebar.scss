@@ -3,7 +3,20 @@ $box-shadow: 0 0 4px 2px rgba(#000,.1);
 #cookiebar {
   text-align: center;
   position: fixed;
+  right: 0;
+  left: 0;
   z-index: 99998; // one below WP's admin bar
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    opacity: .35;
+  }
 
   .inner {
     margin-right: auto;
@@ -15,57 +28,15 @@ $box-shadow: 0 0 4px 2px rgba(#000,.1);
     margin: 1em 0;
   }
 
-  a {
-    text-decoration: underline;
-
-    &:hover,
-    &[data-type="button"] {
-      text-decoration: none;
-    }
-
-    &[data-type="button"] {
-      border-radius: 2px;
-      padding: .4em .5em .3em;
-      white-space: nowrap;
-      position: relative;
-      overflow: hidden;
-
-      &:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        opacity: 0;
-      }
-
-      &:hover:before {
-        opacity: .1;
-      }
-
-      span {
-        position: relative;
-        z-index: 1;
-      }
-    }
+  a.accept-essential-cookies + * {
+    margin-left: .5em;
   }
 
   // positioning
 
   &[data-position="middle"] {
-    &, &:before {
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-    }
-
-    &:before {
-      content: "";
-      position: absolute;
-      opacity: .65;
-    }
+    top: 0;
+    bottom: 0;
 
     .inner {
       width: calc(100% - 2em);
@@ -80,11 +51,37 @@ $box-shadow: 0 0 4px 2px rgba(#000,.1);
 
   &[data-position="top"],
   &[data-position="bottom"] {
-    right: 0;
-    left: 0;
     box-shadow: $box-shadow;
   }
 
-  &[data-position="top"] { top: 0; }
-  &[data-position="bottom"] { bottom: 0; }
+  &[data-position="top"] {
+    &:before {
+      top: 100%;
+    }
+
+    top: 0;
+    .admin-bar & { top: 32px; }
+    @media screen and (max-width:782px) { .admin-bar & { top: 46px; } }
+  }
+
+  &[data-position="bottom"] {
+    bottom: 0;
+
+    &:before {
+      top: calc(100% - 100vh);
+      height: calc(100vh - 100%);
+    }
+  }
+
+  &.shake .inner {
+    animation: shake 0.2s cubic-bezier(.19,.49,.38,.79) both;
+    animation-iteration-count: 3;
+    transform: translateX(0);
+
+    @keyframes shake {
+      25% { transform: translateX(-20px); }
+      75% { transform: translateX(20px); }
+      100% { transform: translateX(0); }
+    }
+  }
 }

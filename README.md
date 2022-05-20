@@ -23,7 +23,7 @@ Custom message cookiebar.
 Once activated you'll find the 'Cookiebar' settings page listed in the submenu of 'Settings'.
 
 1. Enter the content of the cookiebar (multi-language-ready<sup>1</sup>).
-2. Set confirmation UI (text and type).
+2. Set confirmation/rejection UI (text and type).
 3. Define cookiebar style (font size, colors, position).
 4. UX
 
@@ -38,20 +38,33 @@ Once activated you'll find the 'Cookiebar' settings page listed in the submenu o
 
 ```javascript
 // do stuff the moment cookiebar is confirmed
-document.body.addEventListener( 'sid_accepted', function() {
+document.body.addEventListener( 'sid-accepted', function() {
     // ...
 }, false );
 
 if ( typeof Sid === 'undefined' || Sid.accepted ) {
     // do stuff if cookiebar is not in use or already confirmed
 }
+
+// do stuff the moment cookiebar is rejected
+document.body.addEventListener( 'sid-declined', function() {
+    // ...
+}, false );
+
+if ( typeof Sid === 'undefined' || Sid.declined ) {
+    // do stuff if cookiebar is not in use or already declined
+}
 ```
 
 ### PHP
 
 ```php
-if ( function_exists( 'sid_is_accepted' ) && sid_is_accepted() ) {
+if ( !function_exists( 'sid_is_accepted' ) || sid_is_accepted() ) {
     // do stuff if cookiebar is confirmed
+}
+
+if ( !function_exists( 'sid_is_declined' ) || sid_is_declined() ) {
+    // do stuff if cookiebar is declined
 }
 
 // edit the list of languages with filter hook

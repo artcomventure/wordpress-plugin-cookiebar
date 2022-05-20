@@ -8,12 +8,26 @@
   }
 }
 
-select[name="sid[confirmation][type]"] {
+textarea[name$="script]"] {
+  width: 100%;
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-color: #c3c4c7;
+  border-top: 0;
+}
+
+select[name="sid[confirmation][tag]"] {
   height: 25px;
   vertical-align: baseline;
 }
 
+label[for="custom_fontsize"] {
+  margin-right: 1em;
+}
+
 #font-size-slider {
+  width: 100%;
   max-width: 264px;
 
   .ui-slider-handle {
@@ -51,4 +65,12 @@ select[name="sid[confirmation][type]"] {
       background-color: #000;
     }
   }
+
+  display: none;
+  .checked + & { display: block; }
+}
+
+input[name="sid[expires]"] + .description span {
+  &:first-of-type { font-weight: bold; }
+  &.error + span { display: none; }
 }

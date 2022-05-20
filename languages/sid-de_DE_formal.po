@@ -52,7 +52,7 @@ msgstr "Nachricht"
 
 #: inc/settings.php:69
 msgid "Leave blank to not show any message."
-msgstr "Lass das Feld leer, um keine Nachricht anzuzeigen."
+msgstr "Lassen Sie das Feld leer, um keine Nachricht anzuzeigen."
 
 #: inc/settings.php:70
 msgid "As soon as the message is changed the cookiebar will appear again."
@@ -81,7 +81,7 @@ msgstr "Scripts"
 
 #: inc/settings.php:130
 msgid "Enter scripts that should be executed once the cookiebar is accepted."
-msgstr "Gib die Skripte ein, die ausgeführt werden sollen, sobald die Cookie-Leiste akzeptiert wird."
+msgstr "Geben Sie Skripte ein, die ausgeführt werden sollen, sobald die Cookie-Leiste akzeptiert wird."
 
 #: inc/settings.php:143
 msgid "Custom font size"

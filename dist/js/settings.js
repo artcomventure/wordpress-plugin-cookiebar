@@ -5,7 +5,7 @@
      */
 
     $( 'div.nav-tab-wrapper' ).each( function () {
-        var $this = $( this ),
+        const $this = $( this ),
             $tabs = $( 'a', $this ).on( 'click', function ( e ) {
                 e.preventDefault();
 
@@ -27,24 +27,25 @@
      * Change editor styles.
      */
 
-    var $messages = document.getElementsByClassName( 'wp-editor-area' );
+    const $messages = document.getElementsByClassName( 'wp-editor-area' );
     function setEditorStyle( css, selector ) {
+        if ( typeof tinymce === 'undefined' ) return;
         if ( typeof selector === 'undefined' ) selector = 'body';
 
         // need <style>
         if ( selector !== 'body' ) {
-            var _css = [];
+            let _css = [];
 
-            for ( var attribute in css ) {
+            for ( let attribute in css ) {
                 if ( !css.hasOwnProperty( attribute ) ) continue;
                 _css.push( attribute + ': ' + css[attribute] );
             }
 
-            css = '<style type="text/css">' + selector + '{ ' + _css.join( '; ' ) + ' }</style>';
+            css = '<style>' + selector + '{ ' + _css.join( '; ' ) + ' }</style>';
         }
 
         Array.prototype.forEach.call( $messages, function( $message ) {
-            var editor = tinymce.get( $message.id ),
+            const editor = tinymce.get( $message.id ),
                 $body = editor.getBody();
 
             if ( selector === 'body' ) editor.dom.setStyle( $body, css );
@@ -56,8 +57,15 @@
      * Font size range slider.
      */
 
-    var $fontSizeInput = $( 'input[name="sid[fontsize]"]' ),
-        $handle;
+    const $fontSizeInput = $( 'input[name="sid[fontsize]"]' );
+    let $handle;
+
+    $( '#custom_fontsize' ).on( 'change', function() {
+        $(this).parent()[this.checked ? 'addClass' : 'removeClass']( 'checked' );
+
+        if ( this.checked ) setEditorStyle( { fontSize: $fontSizeInput.val()||$fontSizeInput.attr( 'placeholder' ) } );
+        else setEditorStyle( { fontSize: '' } );
+    } ).trigger( 'change' );
 
     $( '#font-size-slider' ).slider( {
         min: 8,
@@ -103,33 +111,65 @@
     } );
 
     /**
-     * Connect confirmation type inputs.
+     * Connect confirmation tag inputs.
      *
      * This field is in t9n section although it's an unique value.
      * Therefore: when one is changed all others are changed (for UX purpose).
      */
 
-    var $buttonColorUI = $( 'input[name="sid[color][button]"]' ).closest( 'div.wp-picker-container' ),
-        $typeInputs = $( 'select[name="sid[confirmation][type]"]' ).on( 'change', function() {
-            $typeInputs.val( this.value );
+    const $buttonColorUI = $( 'input[name="sid[color][button]"]' ).closest( 'div.wp-picker-container' ),
+        $tagInputs = $( 'select[name="sid[rejection][tag]"], select[name="sid[confirmation][tag]"]' ).on( 'change', function() {
+            const name = this.name;
+            const value = this.value;
+
+            $tagInputs.filter( function() {
+                return this.name === name;
+            } ).each( function() { $(this).val( value ); } );
 
             // toggle button color UI
-            // not needed for `type` 'link'.
-            $buttonColorUI[this.value === 'button' ? 'show' : 'hide']()
+            // not needed for button `tag`.
+            $buttonColorUI[$tagInputs.filter( function() { return this.value === 'button' } ).length  ? 'show' : 'hide']()
         } );
 
-    // to toggle button color UI on page load
-    $typeInputs.first().trigger( 'change' );
+        // to toggle button color UI on page load
+        $tagInputs.first().trigger( 'change' );
 
     /**
-     * Overlay color.
+     * Set expiration.
      */
 
-    var $backgroundColorUI = $( 'input[name="sid[color][background]"]' ).closest( 'div.wp-picker-container' );
-    $( 'select[name="sid[position]"]' ).on( 'change', function() {
-        // toggle overlay color UI
-        // not needed for `type` 'link'.
-        $backgroundColorUI[this.value === 'middle' ? 'show' : 'hide']()
-    } ).trigger( 'change' );
+    (function() {
+
+        const $expires = $( 'input[name="sid[expires]"]' );
+        if ( !$expires.length ) return;
+
+        const $display = $expires.find( '+ p.description span:first-of-type' );
+        if ( !$display.length ) return;
+
+        let request;
+
+        function setDescription() {
+            if ( request ) request = request.abort();
+
+            request = $.get( ajaxurl, {
+                action: 'sid-expiration',
+                expires: $expires.val(),
+                format: 'd.m.Y H:i:s'
+            }, function ( response ) {
+                $display.removeClass( 'error' );
+
+                if ( response === false ) {
+                    response = wp.i18n.__( 'ERROR. Please check format.', 'sid' );
+                    $display.addClass( 'error' );
+                }
+                else if ( !response ) response = wp.i18n.__( 'until the end of the session', 'sid' );
+
+                $display.html( response )
+            } );
+        }
+
+        $expires.on( 'input', setDescription );
+
+    })();
 
 })( jQuery );
